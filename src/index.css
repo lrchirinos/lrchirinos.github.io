@@ -1,68 +1,125 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
+  color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  background-color: #0d1117;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Scrollbar Hacker Style */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0d1117; 
+}
+::-webkit-scrollbar-thumb {
+  background: #30363d; 
+  border: 1px solid #58a6ff;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #58a6ff; 
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* Utilidades Cyberpunk */
+.glass-panel {
+  background: rgba(13, 17, 23, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(48, 54, 61, 0.7);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.text-gradient {
+  background: linear-gradient(to right, #58a6ff, #3fb950);
+  -webkit-background-clip: text; /* Necesario para Chrome/Edge/Safari */
+  background-clip: text;         /* La línea que te pide VS Code (Estándar) */
+  -webkit-text-fill-color: transparent;
+  color: transparent;            /* Fallback adicional */
+}
+
+.hologram-img {
+  filter: grayscale(100%) contrast(1.2) drop-shadow(0 0 10px rgba(88, 166, 255, 0.5));
+  transition: all 0.3s ease;
+  border-bottom: 2px solid #58a6ff;
+}
+.hologram-img:hover {
+  filter: grayscale(0%) contrast(1) drop-shadow(0 0 15px rgba(63, 185, 80, 0.8));
+  border-bottom: 2px solid #3fb950;
+}
+
+/* Color de selección de texto personalizado */
+::selection {
+  background: #3fb950; /* Verde terminal */
+  color: #0d1117;      /* Texto oscuro para contraste */
+}
+
+/* Para navegadores Firefox */
+::-moz-selection {
+  background: #3fb950;
+  color: #0d1117;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- ESTILOS DE TARJETA AVANZADOS --- */
+.project-card {
+  background: rgba(13, 17, 23, 0.8);
+  border: 1px solid #30363d;
+  padding: 25px;
+  border-radius: 6px;
+  cursor: pointer; /* Fallback si no hay emoji */
+  /* EMOJI COMO CURSOR DE LLAVE */
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🔑</text></svg>") 16 0, auto; 
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card:hover {
+  transform: translateY(-5px) scale(1.02) !important; /* El !important sobreescribe la animación inicial */
+  border-color: #58a6ff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background: rgba(13, 17, 23, 1);
+}
+
+.project-card:hover .lock-icon {
+  color: #3fb950; /* Candado se pone verde al pasar el mouse */
+  transform: rotateY(180deg); /* Efecto de giro */
+}
+
+.lock-icon {
+  transition: transform 0.5s ease, color 0.3s ease;
+  color: #8b949e;
+}
+
+.folder-tab {
+  background: #30363d;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
 }
