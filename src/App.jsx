@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo, useRef } from 'react';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
+import { useNavigate } from 'react-router-dom';
 
 // ─── DATOS ───────────────────────────────────────────────────────────────────
 const EXPERIENCE = [
@@ -642,6 +643,7 @@ function AboutSection() {
 
 // ─── APP ──────────────────────────────────────────────────────────────────────
 export default function App() {
+  const navigate = useNavigate();
   const [init, setInit] = useState(false);
   const [activeSection, setActiveSection] = useState('hero'); // 'hero' | 'about' | 'experience'
   const [typingLines, setTypingLines] = useState([]);
@@ -804,7 +806,7 @@ export default function App() {
 
         {activeSection === 'experience' && showTerminal && <TerminalLog lines={typingLines} done={terminalDone} />}
 
-        {activeSection === 'hero' && !showTerminal && (
+        {!showTerminal && (
           <div style={{ display: 'flex', gap: '12px', marginTop: '36px', flexWrap: 'wrap', justifyContent: 'center' }}>
             <button onClick={handleDecrypt}
               style={{
@@ -817,12 +819,15 @@ export default function App() {
               onMouseOut={e => { e.target.style.background = 'transparent'; e.target.style.color = '#3fb950'; }}>
               View Experience
             </button>
-            <button title="Coming soon"
+            <button onClick={() => navigate('/projects')}
               style={{
                 padding: isMobile ? '12px 24px' : '15px 32px', fontSize: isMobile ? '0.9rem' : '1rem',
                 background: 'transparent', border: '2px solid #58a6ff', color: '#58a6ff', borderRadius: '4px',
-                cursor: 'not-allowed', fontWeight: 'bold', letterSpacing: '1px', opacity: 0.5
-              }}>
+                cursor: 'pointer', fontWeight: 'bold', letterSpacing: '1px',
+                boxShadow: '0 0 15px rgba(88,166,255,0.2)', transition: 'all 0.3s ease'
+              }}
+              onMouseOver={e => { e.target.style.background = '#58a6ff'; e.target.style.color = '#0d1117'; }}
+              onMouseOut={e => { e.target.style.background = 'transparent'; e.target.style.color = '#58a6ff'; }}>
               View Projects
             </button>
           </div>
